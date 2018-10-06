@@ -91,6 +91,9 @@
     <ClInclude Include="source\common.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="source\CachedIFile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\AesCtrWrappedIFile.cpp">
@@ -160,6 +163,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="source\XciProcess.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\CachedIFile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

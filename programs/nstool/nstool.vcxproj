@@ -180,6 +180,7 @@
   <ItemGroup>
     <ClInclude Include="source\AesCtrWrappedIFile.h" />
     <ClInclude Include="source\AssetProcess.h" />
+    <ClInclude Include="source\CachedIFile.h" />
     <ClInclude Include="source\CnmtProcess.h" />
     <ClInclude Include="source\common.h" />
     <ClInclude Include="source\ElfSymbolParser.h" />
@@ -206,6 +207,7 @@
   <ItemGroup>
     <ClCompile Include="source\AesCtrWrappedIFile.cpp" />
     <ClCompile Include="source\AssetProcess.cpp" />
+    <ClCompile Include="source\CachedIFile.cpp" />
     <ClCompile Include="source\CnmtProcess.cpp" />
     <ClCompile Include="source\ElfSymbolParser.cpp" />
     <ClCompile Include="source\EsTikProcess.cpp" />
