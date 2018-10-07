@@ -36,6 +36,11 @@ void nn::hac::IniHeader::toBytes()
 	// set header identifers
 	hdr->st_magic = ini::kIniStructMagic;
 	
+	if (mKipNum > ini::kMaxKipNum)
+	{
+		throw fnd::Expeption(kModuleId, "Cannot generate INI Header (Too many KIPs)")
+	}
+
 	// write variables
 	hdr->size = mSize;
 	hdr->kip_num = mKipNum;
@@ -46,7 +51,7 @@ void nn::hac::IniHeader::fromBytes(const byte_t* data, size_t len)
 	// check input data size
 	if (len < sizeof(sIniHeader))
 	{
-		throw fnd::Exception(kModuleName, "INI header size is too small");
+		throw fnd::Exception(kModuleName, "INI header corrupt (header size is too small)");
 	}
 
 	// clear internal members
@@ -63,6 +68,12 @@ void nn::hac::IniHeader::fromBytes(const byte_t* data, size_t len)
 	if (hdr->st_magic.get() != ini::kIniStructMagic)
 	{
 		throw fnd::Exception(kModuleName, "INI header corrupt (unrecognised header signature)");
+	}
+
+	// check KIP num
+	if (hdr->kip_num.get() > ini::kMaxKipNum)
+	{
+		throw fnd::Exception(kModuleName, "INI header corrupt (too many KIPs)");
 	}
 
 	// save variables
