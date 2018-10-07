@@ -24,6 +24,8 @@
 #include <nn/hac/nacp.h>
 #include <nn/hac/nso.h>
 #include <nn/hac/nro.h>
+#include <nn/hac/ini.h>
+#include <nn/hac/kip.h>
 #include <nn/hac/aset.h>
 #include <nn/pki/SignedData.h>
 #include <nn/pki/CertificateBody.h>
@@ -52,7 +54,7 @@ void UserSettings::showHelp()
 	printf("\n  General Options:\n");
 	printf("      -d, --dev       Use devkit keyset.\n");
 	printf("      -k, --keyset    Specify keyset file.\n");
-	printf("      -t, --type      Specify input file type. [xci, pfs, romfs, nca, npdm, cnmt, nso, nro, nacp, aset, cert, tik]\n");
+	printf("      -t, --type      Specify input file type. [xci, pfs, romfs, nca, npdm, cnmt, nso, nro, nacp, ini, kip, aset, cert, tik]\n");
 	printf("      -y, --verify    Verify file.\n");
 	printf("\n  Output Options:\n");
 	printf("      --showkeys      Show keys generated.\n");
@@ -612,6 +614,10 @@ FileType UserSettings::getFileTypeFromString(const std::string& type_str)
 		type = FILE_NRO;
 	else if (str == "nacp")
 		type = FILE_NACP;
+	else if (str == "ini")
+		type = FILE_INI;
+	else if (str == "kip")
+		type = FILE_KIP;
 	else if (str == "cert")
 		type = FILE_PKI_CERT;
 	else if (str == "tik")
@@ -668,6 +674,12 @@ FileType UserSettings::determineFileTypeFromFile(const std::string& path)
 	// test nso
 	else if (_ASSERT_SIZE(sizeof(nn::hac::sNroHeader)) && _TYPE_PTR(nn::hac::sNroHeader)->st_magic.get() == nn::hac::nro::kNroStructMagic)
 		file_type = FILE_NRO;
+	// test ini
+	else if (_ASSERT_SIZE(sizeof(nn::hac::sIniHeader)) && _TYPE_PTR(nn::hac::sIniHeader)->st_magic.get() == nn::hac::ini::kIniStructMagic)
+		file_type = FILE_INI;
+	// test kip
+	else if (_ASSERT_SIZE(sizeof(nn::hac::sKipHeader)) && _TYPE_PTR(nn::hac::sKipHeader)->st_magic.get() == nn::hac::kip::kKipStructMagic)
+		file_type = FILE_KIP;
 	// test pki certificate
 	else if (determineValidEsCertFromSample(scratch))
 		file_type = FILE_PKI_CERT;
